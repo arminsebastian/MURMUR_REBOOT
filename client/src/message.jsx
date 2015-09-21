@@ -12,7 +12,6 @@ var CommentBox      = require('./commentBox'),
 var Message = React.createClass({
 
   getInitialState: function () {
-    console.log(' * * * rendering * * * ', this.props.renderMe)
     return {
       commentsView: false,
       votes: 0,
@@ -57,6 +56,7 @@ var Message = React.createClass({
     });
     var votes = this.state.votes;
     this.setState({ votes: votes + alter });
+    // this.props.updateMessages(this.props.messages);
   },
 
   toggleFavorite: function (event){
@@ -78,7 +78,7 @@ var Message = React.createClass({
             id={this.props.id}
             author={comment.uid}
             parent={this.props.messageID}
-            messageID={comment.id}
+            messageID={comment._id}
             message={comment.text}
             baseID={this.props.baseID}
             hairID={this.props.hairID}

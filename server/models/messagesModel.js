@@ -12,10 +12,6 @@ var MessageSchema = new mongoose.Schema({
   votes: {
     type: Number
   },
-  id: {
-    type: String,
-    required: true
-  },
   uid: {
     type: String,
     required: true
