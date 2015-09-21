@@ -41,7 +41,7 @@ var mainView = React.createClass({
       favorites: [],
       sortBy: window.localStorage['murmur.' + this.props.params.id + 'SORT'] || 'recent',
       baseID: 0,
-      hairID: 0
+      hairID: 0,
     };
   },
 
