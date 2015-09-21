@@ -6,6 +6,8 @@ var watchify = require('watchify');
 var reactify = require('reactify');
 var server = require('gulp-server-livereload');
 
+console.gulp('Gulp ran in the server')
+
 gulp.task('default', function() {
   var bundler = watchify(browserify({
     entries: ['./client/src/app.jsx'],
