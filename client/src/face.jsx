@@ -7,7 +7,7 @@ module.exports = React.createClass({
     var index = author.indexOf('-');
     var baseID = author.slice(0, index),
         hairID = author.slice(index + 1);
-    console.log(author, baseID, hairID)
+    // console.log(author, baseID, hairID)
     var baseUrl = 'url(./src/img/face/base/buy-face-' + baseID +'.png)';
     this.styles.basePng.backgroundImage = baseUrl;
     var hairUrl = 'url(./src/img/face/hair/hair-' + hairID +'.png)';
@@ -26,7 +26,7 @@ module.exports = React.createClass({
     )
 
     var reactFace = React.createElement(face); // optional if you want to use the jquery wrapped version
-    console.log(reactFace);
+    // console.log(reactFace);
     return(reactFace);
   },
   // styles temporarily in index.html

@@ -109,6 +109,34 @@ var mainView = React.createClass({
       }
     });
   },
+
+  componentDidMount: function() {
+    var id = this.state.id,
+            context = this,
+            token = window.localStorage['murmur.' + id];
+    // context.checkForUpdates(id, token, context);
+    setInterval(function() {
+            context.checkForUpdates(id, token, context)}, refreshTime);
+  },
+
+  checkForUpdates: function(id, token, context) {
+    // console.log('checking');
+    $.ajax({
+      type: 'POST',
+      url: '/checkroom',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        id: id,
+        token: token
+      }),
+      success: function(data) {
+        // console.log('checking complete');
+        context.setState({
+          messages: data.messages,
+        })
+      }
+    })
+  },
     
   handleSortRecent: function(){
     window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'recent';
