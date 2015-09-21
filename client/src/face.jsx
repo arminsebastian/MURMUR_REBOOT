@@ -3,10 +3,10 @@ var StyleSheet = require('react-style')
 
 module.exports = React.createClass({
   render: function() {
-
-    var baseUrl = 'url(./src/img/face/base/buy-face-' + this.props.baseId +'.png)';
+    
+    var baseUrl = 'url(./src/img/face/base/buy-face-' + this.props.baseID +'.png)';
     this.styles.basePng.backgroundImage = baseUrl;
-    var hairUrl = 'url(./src/img/face/hair/hair-' + this.props.hairId +'.png)';
+    var hairUrl = 'url(./src/img/face/hair/hair-' + this.props.hairID +'.png)';
     this.styles.hairPng.backgroundImage = hairUrl;
     return(
             <span className="face-wrap">

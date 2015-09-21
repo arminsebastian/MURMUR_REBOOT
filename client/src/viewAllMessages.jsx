@@ -14,13 +14,15 @@ var ViewAllMessages = React.createClass({
           <Message
             id={this.props.id}
             favorites={this.props.favorites}
-            auth={message.uid}
+            author={message.uid}
             user={this.props.user}
             message={message.text}
             comments={message.comments}
             votes={message.votes}
             messageID={message.id}
             messages={this.props.messages}
+            hairID={this.props.hairID}
+            baseID={this.props.baseID}
             updateMessages={this.props.updateMessages}
             updateFavorites={this.props.updateFavorites}
             timestamp={message.timestamp} />
