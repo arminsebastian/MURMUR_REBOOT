@@ -9,6 +9,8 @@ var ViewAllMessages = React.createClass({
     for (var i = 0; i < this.props.messages.length; i++) {
       var message = this.props.messages[i];
       if (message.parent === 'main') {
+        var favorite;
+        favorite = _.contains(this.props.favorites, message._id) ? true : false;
         var commentRows = [];
         messageRows.push(
           <Message
@@ -18,6 +20,7 @@ var ViewAllMessages = React.createClass({
             user={this.props.user}
             message={message.text}
             votes={message.votes}
+            favorite={favorite}
             messageID={message._id}
             messages={this.props.messages}
             hairID={this.props.hairID}
