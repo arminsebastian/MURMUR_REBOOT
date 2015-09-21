@@ -6,56 +6,41 @@ var Face = require('./face');
 
 module.exports = React.createClass({
   getInitialState: function() {
-    console.log('Comment Message PROPS * * * : ', this.props)
-    var author = this.props.author,
-        indexOfDash = this.props.author.indexOf('-');
     return {
-      commentBox: 'false',
-      hairID: author.slice(indexOfDash + 1),
-      baseID: author.slice(0, indexOfDash)
+      commentBox: 'false'
     }
   },
-  upVote: function(event){
+ // Post upvote data to Server
+  upVote: function (event){
+    this.vote(event, 1);
+  },
 
+  // Post downvote data to Server
+  downVote: function (event){
+    this.vote(event, -1);
+  },
+
+  vote: function (id, alter) {
     $.ajax({
       type: 'POST',
-      url: 'voteComment' ,
+      url: '/vote' ,
       contentType: 'application/json',
       data: JSON.stringify({
-        id: this.props.id,
         messageID: this.props.messageID,
-        commentID: this.props.commentID,
-        votes: true,
-        token: this.props.token,
-      }),
-      success: function(){
-      }
-    })
+        alter: alter
+      })
+    });
+    var votes = this.state.votes;
+    this.setState({ votes: votes + alter });
   },
-  downVote: function(event){
 
-    $.ajax({
-      type: 'POST',
-      url: 'voteComment' ,
-      contentType: 'application/json',
-      data: JSON.stringify({
-        id: this.props.id,
-        messageID: this.props.messageId,
-        commentID: this.props.commentId,
-        votes: false,
-        token: this.props.token,
-      }),
-      success: function(){
-      }
-    })
-  },
   render: function() {
     return (
-      <div id={this.props.commentID} key={this.props.commentID}>
+      <div id={this.props.messageID} key={this.props.messageID}>
         <div className="conatiner" style={{float: 'left', clear: 'both', marginBottom: '5px'}}>
           <div style={this.styles.commentContainer}>
             <span style={{float: "left"}}>
-              <Face baseID={this.props.baseID} hairID={this.state.hairID} key={this.state.commentID}/>
+              <Face author={this.props.author} key={this.props.messageID}/>
             </span>
             <span style={{float: "left"}}>
               <p style={{fontFamily: 'Alegreya', color: 'black', fontSize: '1em'}}>
