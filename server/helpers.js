@@ -73,7 +73,7 @@ var controllers = {
   },
 
   signup: function (req, res) {
-    console.log('url to be decoded:', req.url.slice(3));
+    console.log('path test:', req.url.path,'url to be decoded:', req.url.slice(3));
     var moderator = jwt.decode(req.url.slice(3), 'donkey');
 
     console.log('moderator data recieved: ', moderator);
@@ -93,7 +93,7 @@ var controllers = {
             };
             console.log('creating new moderator * * * : ', newUser);
             Moderator.create(newUser);
-            res.send('Good! Your user is know active');
+            res.send('Good! Your user is know active. Go to: ' + 'www.murmur.com');
             //res.redirect();
         }
       })
