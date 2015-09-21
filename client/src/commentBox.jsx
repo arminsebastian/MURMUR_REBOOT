@@ -8,16 +8,16 @@ var commentBox = React.createClass({
     };
   },
   // Update message value whenever user changes the message in the comment box
-  handleChange: function(event){
+  handleChange: function (event) {
     if(event.target.value.length <= 150) { // Message cannot be longer than 150 characters
       console.log(this.props.token)
       this.setState({
-        'comment': event.target.value,
+        comment: event.target.value,
       });
     }
   },
   // Post a message when "Submit" button is clicked
-  handleClick: function(event){
+  handleClick: function (event) {
     event.preventDefault();
     var context = this;
     $.ajax({
@@ -39,14 +39,14 @@ var commentBox = React.createClass({
     this.setState({comment: ''}); // Clear comment box
   },
 
-   enterPressed: function(event) {
+   enterPressed: function (event) {
     if(event.keyCode === 13) {
       this.handleClick(event);
     }
   },
 
   // two-way binding commentBox's value and this.state.comment
-  render: function() {
+  render: function () {
     return (
         <div className="input-group" style = {{padding: '15px'}}>
           <input value={this.state.comment} onChange={this.handleChange} onKeyDown={this.enterPressed} type="text" className="form-control" placeholder="Enter your comment here."/>

@@ -121,7 +121,6 @@ var controllers = {
 
   checkRoomExists: function (req, res) {
     console.log('checking room');
-
     var id = req.body.id,
         token = req.body.token,
         uid,
@@ -145,7 +144,7 @@ var controllers = {
         } else {
           if (!token) {
             console.log('no token');
-            uid = createRandomID(5);
+            uid = Math.ceil(Math.random() * 18) + '-' + Math.ceil(Math.random() * 99);
             favorites = [];
             var user = {
               id: uid,
@@ -157,10 +156,9 @@ var controllers = {
             room: id
           })
             .then(function (messages) {
+              console.log('in here too')
               res.json({ success: true, roomData: room, token: token, messages: messages, uid: uid, favorites: favorites });
-            })
-              // .then(function () {
-              //    res.json({ success: true, roomData: roomData, token: uid });
+            });
         }
       })
   },

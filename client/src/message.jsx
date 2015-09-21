@@ -66,15 +66,19 @@ var Message = React.createClass({
 
   render: function() {
     var commentRows = [];
+    console.log('MESSAGE PROPS * * * : ', this.props)
     for (var i = 0; i < this.props.messages.length; i++){
       var comment = this.props.messages[i];
       if (comment.parent === this.props.messageID) {
         commentRows.push(
           <CommentMessage
             id={this.props.id}
+            author={comment.uid}
             messageID={this.props.messageID}
             commentID={comment.id}
             message={comment.text}
+            baseID={this.props.baseID}
+            hairID={this.props.hairID}
             votes={comment.votes}
             timestamp={comment.timestamp} />
         );

@@ -6,8 +6,13 @@ var Face = require('./face');
 
 module.exports = React.createClass({
   getInitialState: function() {
+    console.log('Comment Message PROPS * * * : ', this.props)
+    var author = this.props.author,
+        indexOfDash = this.props.author.indexOf('-');
     return {
       commentBox: 'false',
+      hairID: author.slice(indexOfDash + 1),
+      baseID: author.slice(0, indexOfDash)
     }
   },
   upVote: function(event){
@@ -17,11 +22,11 @@ module.exports = React.createClass({
       url: 'voteComment' ,
       contentType: 'application/json',
       data: JSON.stringify({
-        "roomname": this.props.roomname,
-        "messageId": this.props.messageId,
-        "commentId": this.props.commentId,
-        "vote": true,
-        "token": this.props.token,
+        id: this.props.id,
+        messageID: this.props.messageID,
+        commentID: this.props.commentID,
+        votes: true,
+        token: this.props.token,
       }),
       success: function(){
       }
@@ -34,11 +39,11 @@ module.exports = React.createClass({
       url: 'voteComment' ,
       contentType: 'application/json',
       data: JSON.stringify({
-        "roomname": this.props.id,
-        "messageId": this.props.messageId,
-        "commentId": this.props.commentId,
-        "vote": false,
-        "token": this.props.token,
+        id: this.props.id,
+        messageID: this.props.messageId,
+        commentID: this.props.commentId,
+        votes: false,
+        token: this.props.token,
       }),
       success: function(){
       }
@@ -46,26 +51,26 @@ module.exports = React.createClass({
   },
   render: function() {
     return (
-      <div id={ this.props.commentId } key={ this.props.commentId }>
+      <div id={this.props.commentID} key={this.props.commentID}>
         <div className="conatiner" style={{float: 'left', clear: 'both', marginBottom: '5px'}}>
-          <div style={ this.styles.commentContainer }>
+          <div style={this.styles.commentContainer}>
             <span style={{float: "left"}}>
-              <Face baseId={ this.props.baseId } hairId={ this.props.hairId } key={ this.props.commentID }/>
+              <Face baseID={this.props.baseID} hairID={this.state.hairID} key={this.state.commentID}/>
             </span>
             <span style={{float: "left"}}>
               <p style={{fontFamily: 'Alegreya', color: 'black', fontSize: '1em'}}>
-                { this.props.message }
+                {this.props.message}
               </p>
-              <span style={{fontFamily: 'Alegreya', fontStyle: "italic", fontSize: '.8em', float: "left"}}>
-                ({ moment(this.props.timestamp).fromNow() })
+              <span style={{fontFamily: 'Alegreya', fontStyle: 'italic', fontSize: '.8em', float: "left"}}>
+                ({moment(this.props.timestamp).fromNow()})
               </span>
             </span>
           </div>
         </div>
-        <div style={ this.styles.voteContainer }>
-          <i className="glyphicon glyphicon-chevron-up" style={{color: "#0000FF"}} onClick={ this.upVote }></i>
-            <span className="count"  style={ this.styles.voteCount }> { this.props.votes } </span>
-          <i className="glyphicon glyphicon-chevron-down" style={{color: "#0000FF"}} onClick={ this.downVote }></i>
+        <div style={this.styles.voteContainer}>
+          <i className="glyphicon glyphicon-chevron-up" style={{color: "#0000FF"}} onClick={this.upVote}></i>
+            <span className="count"  style={this.styles.voteCount}> {this.props.votes} </span>
+          <i className="glyphicon glyphicon-chevron-down" style={{color: "#0000FF"}} onClick={this.downVote}></i>
         </div>
       </div>
     )

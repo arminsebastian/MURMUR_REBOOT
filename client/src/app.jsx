@@ -17,13 +17,13 @@ var Modal = require('react-modal'),
 var refreshTime = 2000;
 
 var ModModal = React.createClass({
-  getInitialState: function(){
+  getInitialState: function () {
     return {
       modalIsOn : this.props.modalIsOn
     }
   },
 
-  componentWillUpdate: function(nextProps, nextState){
+  componentWillUpdate: function (nextProps, nextState) {
     nextState.modalIsOn = nextProps.modalIsOn;
   },
 
@@ -90,7 +90,9 @@ var mainView = React.createClass({
       moderator: '',
       roomname: '',
       favorites: [],
-      sortBy: window.localStorage['murmur.' + this.props.params.id + 'SORT'] || 'recent'
+      sortBy: window.localStorage['murmur.' + this.props.params.id + 'SORT'] || 'recent',
+      baseID: 0,
+      hairID: 0
     };
   },
 
@@ -128,12 +130,15 @@ var mainView = React.createClass({
         id: id,
         token: token
       }),
-      success: function(data){
-        console.log('server response:', data, data.success);
+      success: function (data) {
+        console.log('server response:', data);
         if (data.success) {
+          console.log('token: ', token);
           if (!token) {
             window.localStorage['murmur.' + id] = data.token;
             token = data.token;
+            console.log('in token: ', token);
+            console.log('local: ', window.localStorage['murmur.' + id])
           }
           console.log(token);
           console.log('Connected to Database');
@@ -143,7 +148,9 @@ var mainView = React.createClass({
             uid: data.uid,
             moderator: data.roomData.email,
             roomname: data.roomData.name,
-            favorites: data.favorites
+            favorites: data.favorites,
+            baseID: data.baseID,
+            hairID: data.hairID
           })
         } else {
           console.log('room does not exist');
@@ -189,7 +196,7 @@ var mainView = React.createClass({
             </div>
             <InputBox id={this.state.id} messages={this.state.messages} update={this.updateMessages}  />
           </div>
-          <ViewAllMessages sortBy={this.state.sortBy} messages={this.state.messages} id={this.state.id} favorites={this.state.favorites} updateFavorites={this.updateFavorites} updateMessages={this.updateMessages} />
+          <ViewAllMessages sortBy={this.state.sortBy} baseID={this.state.baseID} hairID={this.state.hairID} messages={this.state.messages} id={this.state.id} favorites={this.state.favorites} updateFavorites={this.updateFavorites} updateMessages={this.updateMessages} />
         </div>
       </div>
     )
