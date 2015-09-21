@@ -13,6 +13,7 @@ module.exports = React.createClass({
   },
  // Post upvote data to Server
   upVote: function () {
+    console.log('up')
     this.vote(1);
   },
 
@@ -31,9 +32,9 @@ module.exports = React.createClass({
         alter: alter
       })
     });
-    var votes = this.props.votes;
-    this.props.votes = votes + alter;
-    this.setState({ votes: this.props.votes });
+    var votes = this.state.votes;
+    console.log(votes)
+    this.setState({ votes: votes + alter });
   },
 
   render: function() {
@@ -56,7 +57,7 @@ module.exports = React.createClass({
         </div>
         <div style={this.styles.voteContainer}>
           <i className="glyphicon glyphicon-chevron-up" style={{color: "#0000FF"}} onClick={this.upVote}></i>
-            <span className="count"  style={this.styles.voteCount}> {this.props.votes} </span>
+            <span className="count"  style={this.styles.voteCount}> {this.state.votes} </span>
           <i className="glyphicon glyphicon-chevron-down" style={{color: "#0000FF"}} onClick={this.downVote}></i>
         </div>
       </div>
