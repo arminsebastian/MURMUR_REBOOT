@@ -1,8 +1,11 @@
-var React = require('react');
-var moment = require('moment');
-var CommentBox = require('./commentBox');
-var CommentMessage = require('./commentMessage');
-var _ = require('underscore');
+var React   = require('react'),
+    moment  = require('moment'),
+    _       = require('underscore');
+
+var CommentBox      = require('./commentBox'),
+    CommentMessage  = require('./commentMessage'),
+    Face            = require('./face');
+
 
 // var url = 'http://0.0.0.0:3000/';
 
@@ -33,16 +36,16 @@ var Message = React.createClass({
   },
 
   // Post upvote data to Server
-  upVote: function (event){
-    this.vote(event, 1);
+  upVote: function (){
+    this.vote(1);
   },
 
   // Post downvote data to Server
-  downVote: function (event){
-    this.vote(event, -1);
+  downVote: function (){
+    this.vote(-1);
   },
 
-  vote: function (id, alter) {
+  vote: function (alter) {
     $.ajax({
       type: 'POST',
       url: '/vote' ,
@@ -74,8 +77,8 @@ var Message = React.createClass({
           <CommentMessage
             id={this.props.id}
             author={comment.uid}
-            messageID={this.props.messageID}
-            commentID={comment.id}
+            parent={this.props.messageID}
+            messageID={comment.id}
             message={comment.text}
             baseID={this.props.baseID}
             hairID={this.props.hairID}
@@ -118,6 +121,9 @@ var Message = React.createClass({
         <div className="jumbotron" id={ this.props.messageId } style={{ borderRadius: '40px', paddingLeft: '0', paddingRight: '0', paddingTop: '15px', paddingBottom: '7px', backgroundColor: '#ECF0F5'}} >
           <div className="container">
             <div className="col-xs-10" style={{ marginBottom: '20px', paddingLeft:'10px', marginBottom: '0'}}>
+              <span style={{float: "left"}}>
+                <Face author={this.props.author} key={this.props.messageID}/>
+              </span>
               <p style={{fontFamily: 'Alegreya', color: 'chocolate', marginLeft: "10px", marginBottom: '0'}}>
                 { this.props.message }
               </p>
