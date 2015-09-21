@@ -1,2 +1,2 @@
-web: gulp default
+web: gulp
 web: node server/server.js
