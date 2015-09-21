@@ -27,6 +27,7 @@
     "react-sanfona": "0.0.2",
     "react-style": "^0.5.5",
     "reactify": "^1.1.1",
+    "sendgrid": "^1.9.2",
     "underscore": "^1.8.3",
     "uuid": "^2.0.1",
     "vinyl-source-stream": "^1.1.0",

@@ -32,7 +32,7 @@ var commentBox = React.createClass({
       }),
       success: function(data){
         console.log('server response * * * : ', data);
-        context.props.messages.push(data.messages);
+        context.props.messages.push(data.message);
         context.props.updateMessages(context.props.messages);
       }
     });

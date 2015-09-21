@@ -170,10 +170,7 @@ var controllers = {
         message = req.body.message,
         parent = req.body.parent,
         uid = jwt.decode(req.body.token, 'secret').id;
-
-    console.log('client data for message-add * * * : ', req.body);
     var messageID = createRandomID(5);
-
     var newMessage = {
       timestamp: new Date(),
       id: messageID,
@@ -183,9 +180,7 @@ var controllers = {
       room: id,
       text: message
     };
-
     var createMessage = Q.nbind(Message.create, Message);
-
     createMessage(newMessage)
       .then(function (message) {
         if (message) {
