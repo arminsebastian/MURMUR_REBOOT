@@ -93,8 +93,7 @@ var controllers = {
             };
             console.log('creating new moderator * * * : ', newUser);
             Moderator.create(newUser);
-            res.send('Good! Your user is know active. Go to: ' + 'www.murmur.com');
-            //res.redirect();
+            res.redirect('/');
         }
       })
   },
