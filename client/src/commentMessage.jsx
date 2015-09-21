@@ -7,16 +7,18 @@ var Face = require('./face');
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      commentBox: 'false'
+      commentBox: 'false',
+      votes: this.props.votes
     }
   },
  // Post upvote data to Server
-  upVote: function (){
+  upVote: function () {
+    console.log('up')
     this.vote(1);
   },
 
   // Post downvote data to Server
-  downVote: function (){
+  downVote: function () {
     this.vote(-1);
   },
 
@@ -31,6 +33,7 @@ module.exports = React.createClass({
       })
     });
     var votes = this.state.votes;
+    console.log(votes)
     this.setState({ votes: votes + alter });
   },
 
@@ -54,7 +57,7 @@ module.exports = React.createClass({
         </div>
         <div style={this.styles.voteContainer}>
           <i className="glyphicon glyphicon-chevron-up" style={{color: "#0000FF"}} onClick={this.upVote}></i>
-            <span className="count"  style={this.styles.voteCount}> {this.props.votes} </span>
+            <span className="count"  style={this.styles.voteCount}> {this.state.votes} </span>
           <i className="glyphicon glyphicon-chevron-down" style={{color: "#0000FF"}} onClick={this.downVote}></i>
         </div>
       </div>

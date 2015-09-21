@@ -31,6 +31,7 @@ var controllers = {
           res.json({ signedIn: false });
           console.log('* * * moderator not found')
         } else {
+          console.log(email, password, user)
           if (password === user.password) {
             var token = jwt.encode({ password: password }, 'donkey');
             findRooms({ email: email })
@@ -178,7 +179,6 @@ var controllers = {
     var messageID = createRandomID(5);
     var newMessage = {
       timestamp: new Date(),
-      id: messageID,
       uid: uid,
       parent: parent,
       votes: 0,
@@ -189,7 +189,7 @@ var controllers = {
     createMessage(newMessage)
       .then(function (message) {
         if (message) {
-          res.json({ success: true, message: newMessage });
+          res.json({ success: true, message: message });
         } else {
           res.json({ success: false });
         }
@@ -228,12 +228,14 @@ var controllers = {
     console.log('vote data recieved from client * * * : ', req.body)
 
     // FOR some reason, this is not working:
-    Message.update(
-      { id: messageID },
-      { $inc: { votes: alter } }
-    );
+    // Message.update(
+    //   { id: messageID },
+    //   { $inc: { votes: alter } }
+    // );
+    Message.findByIdAndUpdate(messageID , { $inc: { votes: alter } }, function(err, response) {
+      res.send(response);
+    });
 
-    res.send(200);
     // TO check whether it is updating (it isn't):
     // var findOne = Q.nbind(Message.findOne, Message);
     // findOne({ id: messageID })
