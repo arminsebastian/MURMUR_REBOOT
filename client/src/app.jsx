@@ -144,9 +144,7 @@ var mainView = React.createClass({
     // this.setState({ sortBy: 'recent' })
   },
   handleSortPopular: function(){
-    window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'popular';
-    window.location.reload();
-    // this.setState({ sortBy: 'popular' })
+    this.setState({ sortBy: 'popular' });
   },
   handleFavorites: function(){
     window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'favorite';
@@ -154,9 +152,7 @@ var mainView = React.createClass({
     // this.setState({ sortBy: 'favorite' });
   },
   handleMyPosts: function(){
-    window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'mine';
-    window.location.reload();
-    // this.setState({ sortBy: 'mine' });
+    this.setState({ sortBy: 'mine' });
   },
   toggleInputBox: function(){
     this.setState({ input: !this.state.input })
@@ -166,7 +162,7 @@ var mainView = React.createClass({
       <div>
         <div>
           <div style={this.styles.filter}>
-            <div className="btn-group" style={{display: 'inline-block'}}>
+            <div className="btn-group" style={{display: 'inline-block', marginTop: '20px'}}>
               <button className="btn btn-default" style={{fontFamily: 'Roboto'}} onClick={this.handleSortRecent}> New </button>
               <button className="btn btn-default" style={{fontFamily: 'Roboto'}} onClick={this.handleSortPopular}> Hot </button>
               <button className="btn btn-default" style={{fontFamily: 'Roboto'}} onClick={this.handleFavorites}>Favorites</button>
