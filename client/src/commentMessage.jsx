@@ -11,16 +11,16 @@ module.exports = React.createClass({
     }
   },
  // Post upvote data to Server
-  upVote: function (event){
-    this.vote(event, 1);
+  upVote: function (){
+    this.vote(1);
   },
 
   // Post downvote data to Server
-  downVote: function (event){
-    this.vote(event, -1);
+  downVote: function (){
+    this.vote(-1);
   },
 
-  vote: function (id, alter) {
+  vote: function (alter) {
     $.ajax({
       type: 'POST',
       url: '/vote' ,
