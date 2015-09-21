@@ -1,17 +1,16 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Router = ReactRouter.Router;
-var Route = ReactRouter.Route;
-var Link = ReactRouter.Link;
-var RouteHandler =  ReactRouter.RouteHandler;
-var DefaultRoute = ReactRouter.DefaultRoute;
-var ViewAllMessages = require('./viewAllMessages');
-var TopBar = require('./topbar');
-var InputBox = require('./inputbox');
-var Firebase = require('firebase');
-var Home = require('./home');
-var Modal = require('react-modal'),
-    _ = require('underscore');
+var React = require('react'),
+    ReactRouter = require('react-router'),
+    Router = ReactRouter.Router,
+    Route = ReactRouter.Route,
+    Link = ReactRouter.Link,
+    RouteHandler =  ReactRouter.RouteHandler,
+    DefaultRoute = ReactRouter.DefaultRoute,
+   _ = require('underscore');
+
+var ViewAllMessages = require('./viewAllMessages'),
+    TopBar = require('./topbar'),
+    InputBox = require('./inputbox'),
+    Home = require('./home');
 
 
 var refreshTime = 2000;
@@ -70,7 +69,8 @@ var mainView = React.createClass({
   componentWillMount: function(){
     var id = this.state.id,
         context = this,
-        token = window.localStorage['murmur.' + id];
+        token = window.localStorage['murmur.' + id],
+        moderatorToken = window.localStorage['murmur.moderator'];
     console.log('sending ajax');
     $.ajax({
       type: 'POST',
@@ -146,7 +146,7 @@ var mainView = React.createClass({
             </div>
             <InputBox id={this.state.id} messages={this.state.messages} update={this.updateMessages}  />
           </div>
-          <ViewAllMessages sortBy={this.state.sortBy} baseID={this.state.baseID} hairID={this.state.hairID} messages={this.state.messages} id={this.state.id} favorites={this.state.favorites} updateFavorites={this.updateFavorites} updateMessages={this.updateMessages} />
+          <ViewAllMessages user={this.state.uid} sortBy={this.state.sortBy} baseID={this.state.baseID} hairID={this.state.hairID} messages={this.state.messages} id={this.state.id} favorites={this.state.favorites} updateFavorites={this.updateFavorites} updateMessages={this.updateMessages} />
         </div>
       </div>
     )

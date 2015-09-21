@@ -44,8 +44,8 @@ var ViewAllMessages = React.createClass({
       }),
 
       'mine': _.filter(messageRows.slice(), function (item) {
-        if (item.props.user === item.props.auth) {
-          return true
+        if (item.props.user === item.props.author) {
+          return true;
         }
       }).sort(function (a, b) {
         return new Date(b.props.timestamp) - new Date(a.props.timestamp);
