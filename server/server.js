@@ -1,4 +1,6 @@
 
+var helpers = require('./helpers');
+
 var express = require('express'),
     querystring = require('querystring'),
     mongoose    = require('mongoose'),
@@ -6,19 +8,17 @@ var express = require('express'),
     uriUtil = require('mongodb-uri');
     // MongoWatch = require('mongo-watch');
 
-
-var helpers = require('./helpers')
-// See http://www.yelp.com/developers/documentation/v2/search_api
-
 var app = express();
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-if(env === 'development'){
-  var mongoURI = "mongodb://localhost:27017";
-}else{
-  var mongoURI = "mongodb://tomato:fresh@ds041581.mongolab.com:41581/bigtomato";
-}
+// if(env === 'development'){
+//   var mongoURI = "mongodb://localhost:27017";
+// }else{
+//   var mongoURI = "mongodb://tomato:fresh@ds041581.mongolab.com:41581/bigtomato";
+// }
+
+var mongoURI = process.env.MONGOLAB_URI || "mongodb://localhost:27017";
 
 var mongooseUri = uriUtil.formatMongoose(mongoURI);
 var MongoDB = mongoose.connect(mongooseUri).connection;
