@@ -139,10 +139,9 @@ var mainView = React.createClass({
   },
     
   handleSortRecent: function(){
-    // window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'recent';
-    // window.location.reload();
-    this.setState({ sortBy: 'recent' })
-    this.forceUpdate();
+    window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'recent';
+    window.location.reload();
+    // this.setState({ sortBy: 'recent' })
   },
   handleSortPopular: function(){
     window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'popular';
@@ -150,10 +149,9 @@ var mainView = React.createClass({
     // this.setState({ sortBy: 'popular' })
   },
   handleFavorites: function(){
-    // window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'favorite';
-    // window.location.reload();
-    this.setState({ sortBy: 'favorite' });
-    this.forceUpdate();
+    window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'favorite';
+    window.location.reload();
+    // this.setState({ sortBy: 'favorite' });
   },
   handleMyPosts: function(){
     window.localStorage['murmur.' + this.props.params.id + 'SORT'] = 'mine';
