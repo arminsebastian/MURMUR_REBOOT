@@ -12,12 +12,6 @@ var app = express();
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-// if(env === 'development'){
-//   var mongoURI = "mongodb://localhost:27017";
-// }else{
-//   var mongoURI = "mongodb://tomato:fresh@ds041581.mongolab.com:41581/bigtomato";
-// }
-
 var mongoURI = process.env.MONGOLAB_URI || "mongodb://localhost:27017";
 
 var mongooseUri = uriUtil.formatMongoose(mongoURI);
