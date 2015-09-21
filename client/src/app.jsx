@@ -162,6 +162,9 @@ var mainView = React.createClass({
       <div>
         <div>
           <div style={this.styles.filter}>
+          <div> 
+            <p style={{'fontFamily': 'Sans-serif', 'font-size' : '300%', 'color': 'black', 'margin': 'auto' }}> {this.state.roomname} </p>
+          </div>
             <div className="btn-group" style={{display: 'inline-block', marginTop: '20px'}}>
               <button className="btn btn-default" style={{fontFamily: 'Roboto'}} onClick={this.handleSortRecent}> New </button>
               <button className="btn btn-default" style={{fontFamily: 'Roboto'}} onClick={this.handleSortPopular}> Hot </button>
