@@ -36,6 +36,8 @@ app.use(bodyParser.json());
 
 app.get('/v/*', helpers.signup);
 
+app.post('/signup', helpers.verify);
+
 app.post('/', helpers.addMessage);
 
 app.post('/checkroom', helpers.checkRoomExists);
@@ -43,8 +45,6 @@ app.post('/checkroom', helpers.checkRoomExists);
 app.post('/signin', helpers.signin);
 
 app.post('/create', helpers.createRoom);
-
-app.post('/signup', helpers.verify);
 
 // app.post('/comment', helpers.comment);
 

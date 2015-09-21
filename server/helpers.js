@@ -52,7 +52,7 @@ var controllers = {
   verify: function(req, res){
     var email  = req.body.email,
         password  = req.body.password;
-    console.log('verify is running');
+    console.log('verify is ran','email pass :', email, password);
 
     var url = jwt.encode({
       email: email,
@@ -73,6 +73,7 @@ var controllers = {
   },
 
   signup: function (req, res) {
+    console.log('url to be decoded:', req.url.slice(3));
     var moderator = jwt.decode(req.url.slice(3), 'donkey');
 
     console.log('moderator data recieved: ', moderator);
@@ -92,6 +93,8 @@ var controllers = {
             };
             console.log('creating new moderator * * * : ', newUser);
             Moderator.create(newUser);
+            res.send('Good! Your user is know active');
+            //res.redirect();
         }
       })
   },
