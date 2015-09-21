@@ -31,7 +31,7 @@ var controllers = {
           res.json({ signedIn: false });
           console.log('* * * moderator not found')
         } else {
-          console.log(email, password, user)
+          // console.log(email, password, user)
           if (password === user.password) {
             var token = jwt.encode({ password: password }, 'donkey');
             findRooms({ email: email })
