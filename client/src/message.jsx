@@ -118,7 +118,7 @@ var Message = React.createClass({
         };
 
       return (
-        <div className="jumbotron" id={ this.props.messageId } style={{ borderRadius: '40px', paddingLeft: '0', paddingRight: '0', paddingTop: '15px', paddingBottom: '7px', backgroundColor: '#ECF0F5'}} >
+        <div className="jumbotron" id={ this.props.messageId } style={{ borderRadius: '5px', paddingLeft: '0', paddingRight: '0', paddingTop: '15px', paddingBottom: '7px', backgroundColor: '#ECF0F5'}} >
           <div className="container">
             <div className="col-xs-10" style={{ marginBottom: '20px', paddingLeft:'10px', marginBottom: '0'}}>
               <span style={{float: "left"}}>

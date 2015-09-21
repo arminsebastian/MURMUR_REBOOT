@@ -162,7 +162,7 @@ var mainView = React.createClass({
       <div>
         <div>
           <div style={this.styles.filter}>
-            <div className="btn-group" style={{display: 'inline-block'}}>
+            <div className="btn-group" style={{display: 'inline-block', marginTop: '20px'}}>
               <button className="btn btn-default" style={{fontFamily: 'Roboto'}} onClick={this.handleSortRecent}> New </button>
               <button className="btn btn-default" style={{fontFamily: 'Roboto'}} onClick={this.handleSortPopular}> Hot </button>
               <button className="btn btn-default" style={{fontFamily: 'Roboto'}} onClick={this.handleFavorites}>Favorites</button>
