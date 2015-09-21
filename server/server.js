@@ -3,6 +3,7 @@ var express = require('express'),
     querystring = require('querystring'),
     mongoose    = require('mongoose'),
     bodyParser = require('body-parser');
+    uriUtil = require('mongodb-uri');
     // MongoWatch = require('mongo-watch');
 
 
@@ -11,8 +12,16 @@ var helpers = require('./helpers')
 
 var app = express();
 
-var mongoURI = "mongodb://localhost:27017";
-var MongoDB = mongoose.connect(mongoURI).connection;
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+if(env === 'development'){
+  var mongoURI = "mongodb://localhost:27017";
+}else{
+  var mongoURI = "mongodb://tomato:fresh@ds041581.mongolab.com:41581/bigtomato";
+}
+
+var mongooseUri = uriUtil.formatMongoose(mongoURI);
+var MongoDB = mongoose.connect(mongooseUri).connection;
 MongoDB.on('error', function(err) { console.log(err.message); });
 MongoDB.once('open', function() {
   console.log("mongodb connection open");
@@ -26,7 +35,7 @@ MongoDB.once('open', function() {
 
 app.use(express.static(__dirname + '/../client'));
 
-var server = app.listen(3000, function () {
+var server = app.listen((process.env.PORT || 3000), function () {
   var host = server.address().address;
   var port = server.address().port;
   // console.log('Example app listening at http://%s:%s', host, port);
