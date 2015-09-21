@@ -6,6 +6,8 @@ var watchify = require('watchify');
 var reactify = require('reactify');
 var server = require('gulp-server-livereload');
 
+console.log('Gulp ran in the server')
+
 gulp.task('default', function() {
   var bundler = watchify(browserify({
     entries: ['./client/src/app.jsx'],
@@ -28,14 +30,15 @@ gulp.task('default', function() {
   build();
   bundler.on('update', build);
 
-  gulp.src('./client')
-    .pipe(server({
-      port: 8080,
-      livereload: {
-        enable: true,
-        filter: function(filePath, cb) {
-          cb( /main.js/.test(filePath) );
-        }
-      },
-    }));
+  // gulp.src('./client')
+  //   .pipe(server({
+  //     port: 8080,
+  //     livereload: {
+  //       enable: true,
+  //       filter: function(filePath, cb) {
+  //         cb( /main.js/.test(filePath) );
+  //       }
+  //     },
+  //   }));
+
 });
