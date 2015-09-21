@@ -22,7 +22,8 @@ var controllers = {
 
   signin: function (req, res) {
     var email = req.body.email,
-        password = req.body.password;
+        password = req.body.password,
+        findRooms = Q.nbind(Room.find, Room);
 
     findModerator({email: email})
       .then(function (user) {
@@ -31,7 +32,14 @@ var controllers = {
           console.log('* * * moderator not found')
         } else {
           if (password === user.password) {
-            res.json({ signedIn: true });
+            var token = jwt.encode({ password: password }, 'donkey');
+            findRooms({ email: email })
+              .then(function (rooms) {
+                rooms = _.map(rooms, function (room) {
+                  return { name: room.name, id: room.id };
+                });
+                res.json({ signedIn: true, rooms: rooms, token: token });
+              })
           } else {
             console.log('* * * password incorrect');
             res.json({ signedIn: false })
@@ -48,7 +56,7 @@ var controllers = {
     var url = jwt.encode({
       email: email,
       password: password
-    }, 'secret')
+    }, 'donkey')
 
     findModerator({ email: email })
       .then(function(user) {
@@ -64,7 +72,7 @@ var controllers = {
   },
 
   signup: function (req, res) {
-    var moderator = jwt.decode(req.url.slice(3), 'secret');
+    var moderator = jwt.decode(req.url.slice(3), 'donkey');
 
     console.log('moderator data recieved: ', moderator);
     var email  = moderator.email,
@@ -127,7 +135,7 @@ var controllers = {
         favorites;
 
     if (token) {
-      var user = jwt.decode(token, 'secret');
+      var user = jwt.decode(token, 'donkey');
       favorites = user.favorites;
       uid = user.id;
     }
@@ -150,13 +158,12 @@ var controllers = {
               id: uid,
               favorites: []
             };
-            token = jwt.encode(user, 'secret');
+            token = jwt.encode(user, 'donkey');
           }
           retrieveMessages({
             room: id
           })
             .then(function (messages) {
-              console.log('in here too')
               res.json({ success: true, roomData: room, token: token, messages: messages, uid: uid, favorites: favorites });
             });
         }
@@ -167,7 +174,7 @@ var controllers = {
     var id = req.body.id,
         message = req.body.message,
         parent = req.body.parent,
-        uid = jwt.decode(req.body.token, 'secret').id;
+        uid = jwt.decode(req.body.token, 'donkey').id;
     var messageID = createRandomID(5);
     var newMessage = {
       timestamp: new Date(),
@@ -190,7 +197,7 @@ var controllers = {
   },
 
   updateFavorites: function (req, res) {
-    var user = jwt.decode(req.body.token, 'secret');
+    var user = jwt.decode(req.body.token, 'donkey');
     var favorites = user.favorites,
         uid = user.id,
         messageID = req.body.messageID;
@@ -209,7 +216,7 @@ var controllers = {
       favorites: favorites,
       id: uid
     };
-    var token = jwt.encode(updatedUser, 'secret');
+    var token = jwt.encode(updatedUser, 'donkey');
     res.json({ token: token , favorites: favorites });
   },
 

@@ -1,7 +1,8 @@
-var React = require('react');
-var ReactRouter = require('react-router');
+var React       = require('react'),
+    ReactRouter = require('react-router');
 // var url = 'http://0.0.0.0:3000/';
 
+var Rooms = require('./rooms');
 
 var Home = React.createClass({
   mixins: [ReactRouter.Navigation],
@@ -15,29 +16,30 @@ var Home = React.createClass({
       url: 'signin',
       button: 'create an account',
       emailStore: '',
-      verificationSent: false
+      verificationSent: false,
+      rooms: []
     };
   },
 
-  handleRoomnameTextChange: function(event) {
+  handleRoomnameTextChange: function (event) {
     this.setState({
       roomname: event.target.value
     })
   },
 
-  handlePasswordTextChange: function(event){
+  handlePasswordTextChange: function (event){
     this.setState({
       password: event.target.value
     })
   },
 
-  handleEmailTextChange: function(event){
+  handleEmailTextChange: function (event) {
     this.setState({
       email: event.target.value
     })
   },
 
-  enterPressed: function(event) {
+  enterPressed: function (event) {
     if(event.keyCode === 13 && this.state.loggedIn) {
       this.submitRoom(event);
     }
@@ -47,8 +49,12 @@ var Home = React.createClass({
     }
   },
 
+  goToRoom: function (id) {
+    this.transitionTo('room', {id: id});
+  },
+
   submitRoom: function(event){
-    var that = this;
+    var context = this;
     event.preventDefault();
     $.ajax({ // Post message
       type: 'POST',
@@ -61,7 +67,7 @@ var Home = React.createClass({
       success: function(data){
         console.log('server response:', data);
         if (data.success) {
-          that.transitionTo('room', {id: data.id});
+          context.transitionTo('room', {id: data.id});
         }
       }
     });
@@ -72,19 +78,22 @@ var Home = React.createClass({
 
   CreateRoom: function() { 
     return (
-      <div className="input-group" style = {{padding: '15px', marginTop: '100px'}}>
-        <h1>create a room</h1>
-        <input value={this.state.roomname} onChange={this.handleRoomnameTextChange} onKeyDown={this.enterPressed} type="text" className="form-control"  placeholder="Enter your room's name" />
-        <span className="input-group-btn" >
-          <button onClick={this.submitRoom} className="btn btn-success" type="button"> Submit </button>
-        </span>      
+      <div>
+        <div className="input-group" style = {{padding: '15px', marginTop: '100px'}}>
+          <h1>create a room</h1>
+          <input value={this.state.roomname} onChange={this.handleRoomnameTextChange} onKeyDown={this.enterPressed} type="text" className="form-control"  placeholder="Enter your room's name" />
+          <span className="input-group-btn" >
+            <button onClick={this.submitRoom} className="btn btn-success" type="button"> Submit </button>
+          </span>      
+        </div>
+        <Rooms rooms={this.state.rooms} goTo={this.goToRoom}/>
       </div>
     )
   },
 
   submitAuth: function(event){
     event.preventDefault();
-    var that = this;
+    var context = this;
     $.ajax({ // Post message
       type: 'POST',
       url: '/' + this.state.url,
@@ -92,12 +101,14 @@ var Home = React.createClass({
       data: JSON.stringify({ "email": this.state.email, "password": this.state.password }),
       success: function (data){
         if (data.signedIn) {
-          that.setState({
-            loggedIn : true,
-            emailStore : that.state.email
+          window.localStorage['murmur.moderator'] = data.token;
+          context.setState({
+            loggedIn: true,
+            emailStore: context.state.email,
+            rooms: data.rooms
           })
         } else if (data.emailSent) {
-          that.setState({
+          context.setState({
             verificationSent: true,
             url: 'signin',
             button: 'create an account'
