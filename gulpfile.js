@@ -28,14 +28,15 @@ gulp.task('default', function() {
   build();
   bundler.on('update', build);
 
-  gulp.src('./client')
-    .pipe(server({
-      port: 8080,
-      livereload: {
-        enable: true,
-        filter: function(filePath, cb) {
-          cb( /main.js/.test(filePath) );
-        }
-      },
-    }));
+  // gulp.src('./client')
+  //   .pipe(server({
+  //     port: 8080,
+  //     livereload: {
+  //       enable: true,
+  //       filter: function(filePath, cb) {
+  //         cb( /main.js/.test(filePath) );
+  //       }
+  //     },
+  //   }));
+
 });
