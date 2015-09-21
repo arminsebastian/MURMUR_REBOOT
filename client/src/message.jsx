@@ -69,7 +69,7 @@ var Message = React.createClass({
 
   render: function() {
     var commentRows = [];
-    console.log('MESSAGE PROPS * * * : ', this.props)
+    // console.log('MESSAGE PROPS * * * : ', this.props)
     for (var i = 0; i < this.props.messages.length; i++){
       var comment = this.props.messages[i];
       if (comment.parent === this.props.messageID) {

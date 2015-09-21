@@ -5,7 +5,7 @@ var React   = require('react'),
 var ViewAllMessages = React.createClass({
   render: function() {
         messageRows = [];
-    console.log(this.props.messages);
+    // console.log(this.props.messages);
     for (var i = 0; i < this.props.messages.length; i++) {
       var message = this.props.messages[i];
       if (message.parent === 'main') {
